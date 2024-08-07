@@ -2,6 +2,7 @@ import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:todo_app/tabs/settings_tab.dart';
 import 'package:todo_app/tabs/tasks_tab.dart';
 
 import 'add_task_bottom_sheet.dart';
@@ -88,5 +89,5 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  List<Widget> tabs = [TasksTab()];
+  List<Widget> tabs = [TasksTab(), SettingsTab()];
 }
