@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/providers/my_provider.dart';
+
+import 'package:todo_app/my_theme_data.dart';
 
 class LanguageBottomSheet extends StatelessWidget {
   const LanguageBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<MyProvider>(context);
     return Container(
       width: double.infinity,
       child: Column(
@@ -17,10 +22,16 @@ class LanguageBottomSheet extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("English", style: TextStyle(color: Color(0xFF5D9CEC))),
+                  Text(
+                    "English",
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        color: provider.mode == ThemeMode.light
+                            ? blueColor
+                            : Colors.white),
+                  ),
                   Icon(
                     Icons.done,
-                    size: 30,
+                    size: 20,
                     color: Color(0xFF5D9CEC),
                   )
 
@@ -36,7 +47,13 @@ class LanguageBottomSheet extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Arabic"),
+                  Text(
+                    "Arabic",
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        color: provider.mode == ThemeMode.light
+                            ? Colors.black
+                            : blueColor),
+                  ),
 
                   // Icon(Icons.done),
                 ],

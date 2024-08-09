@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_app/bottom_sheets/language_bottom_sheet.dart';
 import 'package:todo_app/bottom_sheets/theme_bottom_sheet.dart';
+import 'package:todo_app/providers/my_provider.dart';
+import 'package:todo_app/my_theme_data.dart';
 
 class SettingsTab extends StatelessWidget {
   const SettingsTab({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<MyProvider>(context);
     return Padding(
       padding: const EdgeInsets.all(18.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Language",
-            style: GoogleFonts.poppins(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                color: Color(0Xff5D9CEC)),
-          ),
+          Text("Language", style: Theme.of(context).textTheme.titleMedium),
           SizedBox(
             height: 10,
           ),
@@ -27,7 +24,9 @@ class SettingsTab extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 height: 48,
-                color: Colors.white,
+                color: provider.mode == ThemeMode.light
+                    ? Colors.white
+                    : primaryDarkColor,
                 alignment: Alignment.centerLeft,
                 child: Row(
                   children: [
@@ -35,9 +34,8 @@ class SettingsTab extends StatelessWidget {
                       width: 10,
                     ),
                     Expanded(
-                      child: Text(
-                        "English",
-                      ),
+                      child: Text("English",
+                          style: Theme.of(context).textTheme.headlineMedium),
                     ),
                     IconButton(
                         onPressed: () {
@@ -52,23 +50,21 @@ class SettingsTab extends StatelessWidget {
                         },
                         icon: ImageIcon(
                           AssetImage("assets/images/drop_down_icon.png"),
-                          color: Color(0xFF5D9CEC),
+                          color: blueColor,
                         )),
                   ],
                 ),
               )),
-          Text(
-            "Mode",
-            style: GoogleFonts.poppins(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                color: Color(0Xff5D9CEC)),
-          ),
+          Text("Mode", style: Theme.of(context).textTheme.titleMedium
+              // ?.copyWith(color: Colors.black),
+              ),
           Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 height: 48,
-                color: Colors.white,
+                color: provider.mode == ThemeMode.light
+                    ? Colors.white
+                    : primaryDarkColor,
                 alignment: Alignment.centerLeft,
                 child: Row(
                   children: [
@@ -76,10 +72,8 @@ class SettingsTab extends StatelessWidget {
                       width: 10,
                     ),
                     Expanded(
-                      child: Text(
-                        "Light",
-                      ),
-                    ),
+                        child: Text("Light",
+                            style: Theme.of(context).textTheme.headlineMedium)),
                     IconButton(
                         onPressed: () {
                           showModalBottomSheet(
@@ -93,7 +87,7 @@ class SettingsTab extends StatelessWidget {
                         },
                         icon: ImageIcon(
                           AssetImage("assets/images/drop_down_icon.png"),
-                          color: Color(0xFF5D9CEC),
+                          color: blueColor,
                         )),
                   ],
                 ),
