@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/bottom_sheets/language_bottom_sheet.dart';
@@ -16,7 +17,7 @@ class SettingsTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Language", style: Theme.of(context).textTheme.titleMedium),
+          Text("language".tr(), style: Theme.of(context).textTheme.titleMedium),
           SizedBox(
             height: 10,
           ),
@@ -34,7 +35,7 @@ class SettingsTab extends StatelessWidget {
                       width: 10,
                     ),
                     Expanded(
-                      child: Text("English",
+                      child: Text("english".tr(),
                           style: Theme.of(context).textTheme.headlineMedium),
                     ),
                     IconButton(
@@ -55,7 +56,7 @@ class SettingsTab extends StatelessWidget {
                   ],
                 ),
               )),
-          Text("Mode", style: Theme.of(context).textTheme.titleMedium
+          Text("mode".tr(), style: Theme.of(context).textTheme.titleMedium
               // ?.copyWith(color: Colors.black),
               ),
           Padding(
@@ -72,7 +73,10 @@ class SettingsTab extends StatelessWidget {
                       width: 10,
                     ),
                     Expanded(
-                        child: Text("Light",
+                        child: Text(
+                            provider.mode == ThemeMode.light
+                                ? "light".tr()
+                                : "dark".tr(),
                             style: Theme.of(context).textTheme.headlineMedium)),
                     IconButton(
                         onPressed: () {

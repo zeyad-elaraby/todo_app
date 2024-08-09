@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/providers/my_provider.dart';
@@ -19,12 +20,13 @@ class ThemeBottomSheet extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 provider.changeTheme(ThemeMode.light);
+                Navigator.pop(context);
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Light",
+                    "light".tr(),
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         color: provider.mode == ThemeMode.light
                             ? blueColor
@@ -48,12 +50,13 @@ class ThemeBottomSheet extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 provider.changeTheme(ThemeMode.dark);
+                Navigator.pop(context);
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Dark",
+                    "dark".tr(),
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         color: provider.mode == ThemeMode.light
                             ? Colors.black

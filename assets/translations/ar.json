@@ -1,0 +1,16 @@
+{
+  "to_do_list":"قائمة المهام",
+  "task_title":"عنوان المهمة",
+  "task_description":"وصف المهمة",
+  "language":"اللغة",
+  "mode":"الوضع",
+  "english":"الأنجليزية",
+  "arabic":"العربية",
+  "dark":"ليلي",
+  "light":"نهاري",
+  "add_new_task":"اضافة مهمة جديدة",
+  "title":"العنوان",
+  "description":"الوصف",
+  "select_date":"إختيار الوقت",
+  "add":"اضافة"
+}

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class AddTaskBottomSheet extends StatelessWidget {
@@ -14,7 +15,7 @@ class AddTaskBottomSheet extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Center(
-                  child: Text("Add new Task",
+                  child: Text("add_new_task".tr(),
                       style: Theme.of(context).textTheme.titleMedium),
                 ),
                 SizedBox(
@@ -22,7 +23,7 @@ class AddTaskBottomSheet extends StatelessWidget {
                 ),
                 TextField(
                   decoration: InputDecoration(
-                      labelText: "title",
+                      labelText: "title".tr(),
                       labelStyle: Theme.of(context).textTheme.bodyMedium,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(18))),
@@ -32,7 +33,7 @@ class AddTaskBottomSheet extends StatelessWidget {
                 ),
                 TextField(
                   decoration: InputDecoration(
-                      labelText: "description",
+                      labelText: "description".tr(),
                       labelStyle: Theme.of(context).textTheme.bodyMedium,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(18))),
@@ -40,7 +41,7 @@ class AddTaskBottomSheet extends StatelessWidget {
                 SizedBox(
                   height: 10,
                 ),
-                Text("Select Date",
+                Text("select_date".tr(),
                     style: Theme.of(context).textTheme.displayLarge),
                 SizedBox(
                   height: 18,
@@ -58,7 +59,7 @@ class AddTaskBottomSheet extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFF5D9CEC)),
                       onPressed: () {},
-                      child: Text("add",
+                      child: Text("add".tr(),
                           style: Theme.of(context)
                               .textTheme
                               .bodyLarge

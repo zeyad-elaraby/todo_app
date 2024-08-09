@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/tabs/settings_tab.dart';
@@ -22,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
       extendBody: true,
       appBar: AppBar(
         title: Text(
-          "To Do List",
+          "to_do_list".tr(),
         ),
       ),
       body: tabs[selectedIndex],
