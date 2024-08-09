@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AddTaskBottomSheet extends StatelessWidget {
   const AddTaskBottomSheet({super.key});
@@ -15,17 +14,16 @@ class AddTaskBottomSheet extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Center(
-                    child: Text(
-                  "Add new Task",
-                  style: GoogleFonts.poppins(
-                      fontSize: 18, fontWeight: FontWeight.w700),
-                )),
+                  child: Text("Add new Task",
+                      style: Theme.of(context).textTheme.titleMedium),
+                ),
                 SizedBox(
                   height: 18,
                 ),
                 TextField(
                   decoration: InputDecoration(
                       labelText: "title",
+                      labelStyle: Theme.of(context).textTheme.bodyMedium,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(18))),
                 ),
@@ -35,26 +33,21 @@ class AddTaskBottomSheet extends StatelessWidget {
                 TextField(
                   decoration: InputDecoration(
                       labelText: "description",
+                      labelStyle: Theme.of(context).textTheme.bodyMedium,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(18))),
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                Text(
-                  "Select Date",
-                  style: GoogleFonts.inter(
-                      fontSize: 20, fontWeight: FontWeight.w400),
-                ),
+                Text("Select Date",
+                    style: Theme.of(context).textTheme.displayLarge),
                 SizedBox(
                   height: 18,
                 ),
                 Center(
-                  child: Text(
-                    "12:00",
-                    style: GoogleFonts.inter(
-                        fontSize: 20, fontWeight: FontWeight.w400),
-                  ),
+                  child: Text("12:00",
+                      style: Theme.of(context).textTheme.bodyLarge),
                 ),
                 SizedBox(
                   height: 18,
@@ -65,10 +58,11 @@ class AddTaskBottomSheet extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFF5D9CEC)),
                       onPressed: () {},
-                      child: Text(
-                        "add",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      )),
+                      child: Text("add",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(color: Colors.white))),
                 )
               ])),
     );
