@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -33,12 +34,12 @@ class TaskItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("task title",
+                Text("task_title".tr(),
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium
                         ?.copyWith(color: blueColor)),
-                Text("task description",
+                Text("task_description".tr(),
                     style: Theme.of(context)
                         .textTheme
                         .labelSmall
