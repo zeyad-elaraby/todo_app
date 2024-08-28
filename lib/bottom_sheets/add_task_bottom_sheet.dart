@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/firebase_functions.dart';
-import 'package:todo_app/task_model.dart';
+import 'package:todo_app/models/task_model.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
   AddTaskBottomSheet({super.key});
@@ -78,6 +80,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                           backgroundColor: Color(0xFF5D9CEC)),
                       onPressed: () {
                         TaskModel model = TaskModel(
+                          userId: FirebaseAuth.instance.currentUser?.uid??"",
                             title: titleController.text,
                             description: descriptionController.text,
                             date: DateUtils.dateOnly(selectedDate).millisecondsSinceEpoch);

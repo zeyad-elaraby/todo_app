@@ -5,9 +5,11 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_app/my_theme_data.dart';
 import 'package:todo_app/providers/my_provider.dart';
+import 'package:todo_app/signup/sign_up.dart';
 
 import 'firebase_options.dart';
 import 'home_screen.dart';
+import 'login/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +18,8 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(ChangeNotifierProvider(
-      create: (context) => MyProvider(),
+      create: (context) =>  MyProvider(),
+
       child: EasyLocalization(
           supportedLocales: [Locale('en'), Locale('ar')],
           saveLocale: true,
@@ -30,19 +33,21 @@ class MyApp extends StatelessWidget {
   // MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    provider = Provider.of<MyProvider>(context);
+  var  provider = Provider.of<MyProvider>(context);
     getTheme();
     return MaterialApp(
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       debugShowCheckedModeBanner: false,
-      initialRoute: HomeScreen.routeName,
       themeMode: provider.mode,
       theme: MyThemeData.lightTheme,
       darkTheme: MyThemeData.darkTheme,
+      initialRoute:provider.fireBaseUser!=null?HomeScreen.routeName: LoginScreen.routeName ,
       routes: {
         HomeScreen.routeName: (context) => HomeScreen(),
+        LoginScreen.routeName: (context) => LoginScreen(),
+        SignupScreen.routeName: (context) => SignupScreen(),
       },
     );
   }

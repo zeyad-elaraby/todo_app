@@ -7,7 +7,7 @@ import 'package:todo_app/firebase_functions.dart';
 import 'package:todo_app/my_theme_data.dart';
 import 'package:todo_app/providers/my_provider.dart';
 import 'package:todo_app/my_theme_data.dart';
-import 'package:todo_app/task_model.dart';
+import 'package:todo_app/models/task_model.dart';
 
 class TaskItem extends StatelessWidget {
   TaskItem({required this.model, super.key});

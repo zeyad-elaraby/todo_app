@@ -1,6 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/login/login_screen.dart';
+import 'package:todo_app/providers/my_provider.dart';
 import 'package:todo_app/tabs/settings_tab.dart';
 import 'package:todo_app/tabs/tasks_tab.dart';
 
@@ -16,15 +20,16 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
-
   @override
   Widget build(BuildContext context) {
+var provider=Provider.of<MyProvider>(context);
     return Scaffold(
       extendBody: true,
       appBar: AppBar(
         title: Text(
-          "to_do_list".tr(),
+          "Hello  ${provider.userModel?.name??""}",
         ),
+
       ),
       body: tabs[selectedIndex],
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
