@@ -39,7 +39,6 @@ DateTime dateTime=DateTime.now();
           dayColor: Colors.blue,
           activeDayColor: Colors.white,
           activeBackgroundDayColor: Colors.blue,
-          // selectableDayPredicate: (date) => date.day != 5,
           locale: 'en',
         ),
         SizedBox(

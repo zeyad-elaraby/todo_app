@@ -9,6 +9,8 @@ import 'package:todo_app/providers/my_provider.dart';
 import 'package:todo_app/my_theme_data.dart';
 import 'package:todo_app/models/task_model.dart';
 
+import 'edit_task_screen.dart';
+
 class TaskItem extends StatelessWidget {
   TaskItem({required this.model, super.key});
   TaskModel model;
@@ -39,7 +41,7 @@ class TaskItem extends StatelessWidget {
             ),
             SlidableAction(
               onPressed: (context) {
-                FirebaseFunctions.updateTask(model);
+                Navigator.pushNamed(context, EditTaskScreen.routeName,arguments: model);
               },
               icon: Icons.edit,
               backgroundColor: Colors.blue,
