@@ -8,6 +8,7 @@ import 'package:todo_app/my_theme_data.dart';
 import 'package:todo_app/providers/my_provider.dart';
 import 'package:todo_app/signup/sign_up.dart';
 
+import 'edit_task_screen.dart';
 import 'firebase_options.dart';
 import 'home_screen.dart';
 import 'login/login_screen.dart';
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
         HomeScreen.routeName: (context) => HomeScreen(),
         LoginScreen.routeName: (context) => LoginScreen(),
         SignupScreen.routeName: (context) => SignupScreen(),
+        EditTaskScreen.routeName: (context) => EditTaskScreen(),
       },
     );
   }

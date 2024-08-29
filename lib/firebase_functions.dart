@@ -15,7 +15,6 @@ class FirebaseFunctions {
       },
     );
   }
-
   static CollectionReference<UserModel> getUserCollection() {
     return FirebaseFirestore.instance
         .collection("Users")
