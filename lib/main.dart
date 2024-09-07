@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_app/my_theme_data.dart';
+import 'package:todo_app/providers/authentication_provider.dart';
 import 'package:todo_app/providers/my_provider.dart';
 import 'package:todo_app/signup/sign_up.dart';
 
@@ -20,23 +21,33 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await FirebaseFirestore.instance.enableNetwork();
-  runApp(ChangeNotifierProvider(
-      create: (context) =>  MyProvider(),
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (context) =>  MyProvider(),
 
-      child: EasyLocalization(
-          supportedLocales: [Locale('en'), Locale('ar')],
-          saveLocale: true,
-          path:
-              'assets/translations', // <-- change the path of the translation files
-          child: MyApp())));
+      ),
+      ChangeNotifierProvider(create:
+      (context) => AuthenticationProvider(),
+      )
+    ],
+    child: EasyLocalization(
+        supportedLocales: [Locale('en'), Locale('ar')],
+        saveLocale: true,
+        path:
+            'assets/translations',
+        child: MyApp()),
+  ));
 }
 
 class MyApp extends StatelessWidget {
   late MyProvider provider;
+  late AuthenticationProvider authenticationProvider;
   // MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-  var  provider = Provider.of<MyProvider>(context);
+      provider = Provider.of<MyProvider>(context);  //when i put var before provider i get the tasks
+      authenticationProvider = Provider.of<AuthenticationProvider>(context);
     getTheme();
     return MaterialApp(
       localizationsDelegates: context.localizationDelegates,
@@ -46,7 +57,7 @@ class MyApp extends StatelessWidget {
       themeMode: provider.mode,
       theme: MyThemeData.lightTheme,
       darkTheme: MyThemeData.darkTheme,
-      initialRoute:provider.fireBaseUser!=null?HomeScreen.routeName: LoginScreen.routeName ,
+      initialRoute:authenticationProvider.fireBaseUser!=null?HomeScreen.routeName: LoginScreen.routeName ,
       routes: {
         HomeScreen.routeName: (context) => HomeScreen(),
         LoginScreen.routeName: (context) => LoginScreen(),

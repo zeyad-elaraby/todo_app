@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/login/login_screen.dart';
+import 'package:todo_app/providers/authentication_provider.dart';
 import 'package:todo_app/providers/my_provider.dart';
 import 'package:todo_app/tabs/settings_tab.dart';
 import 'package:todo_app/tabs/tasks_tab.dart';
@@ -23,11 +24,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
 var provider=Provider.of<MyProvider>(context);
+var authProvider = Provider.of<AuthenticationProvider>(context);
+
     return Scaffold(
       extendBody: true,
       appBar: AppBar(
         title: Text(
-          "Hello  ${provider.userModel?.name??""}",
+          "Hello  ${authProvider.userModel?.name??""}",
         ),
 
       ),
