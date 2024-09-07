@@ -1,192 +1,207 @@
-    import 'package:flutter/material.dart';
-    import 'package:google_fonts/google_fonts.dart';
-    import 'package:provider/provider.dart';
-    import 'package:todo_app/firebase_functions.dart';
-    import 'package:todo_app/home_screen.dart';
-    import 'package:todo_app/providers/my_provider.dart';
-    import 'package:todo_app/signup/sign_up.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/firebase_functions.dart';
+import 'package:todo_app/home_screen.dart';
+import 'package:todo_app/providers/authentication_provider.dart';
+import 'package:todo_app/providers/my_provider.dart';
+import 'package:todo_app/signup/sign_up.dart';
 
-    class LoginScreen extends StatefulWidget {
-      static const String routeName = "LoginScreen";
-      const LoginScreen({super.key});
+import '../my_theme_data.dart';
 
-      @override
-      State<LoginScreen> createState() => _LoginScreenState();
-    }
+class LoginScreen extends StatefulWidget {
+  static const String routeName = "LoginScreen";
+  const LoginScreen({super.key});
 
-    class _LoginScreenState extends State<LoginScreen> {
-      bool _passwordVisible = true;
-      var emailController = TextEditingController();
-      var passwordController = TextEditingController();
-      var formKey = GlobalKey<FormState>();
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
 
-      @override
-      Widget build(BuildContext context) {
-        var provider = Provider.of<MyProvider>(context);
-        return Scaffold(
-          backgroundColor: Colors.white,
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Padding(
-                  padding: EdgeInsets.only(top: 50),
-                  child: Column(
-                    children: [
-                      Image.asset("assets/images/login_person.png"),
-                    ],
-                  ),
+class _LoginScreenState extends State<LoginScreen> {
+  bool _passwordVisible = true;
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
+  var formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    var provider = Provider.of<MyProvider>(context);
+    var authProvider = Provider.of<AuthenticationProvider>(context);
+    return Scaffold(
+      backgroundColor: provider.mode == ThemeMode.light
+          ? primaryLightColor
+          : primaryDarkColor,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Padding(
+                padding: EdgeInsets.only(top: 50),
+                child: Column(
+                  children: [
+                    Image.asset("assets/images/login_person.png"),
+                  ],
                 ),
               ),
-              SizedBox(
-                height: 25,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: Form(
-                  key: formKey ,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Login Details",
-                          style:
-                              GoogleFonts.outfit(color: Colors.black, fontSize: 26)),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
-                        validator:  (value) {
-                          if(value==null||value.isEmpty){
-                            return "please enter email";
-                          }
-                        },
-                        keyboardType: TextInputType.emailAddress,
-                        controller: emailController,
-                        decoration: InputDecoration(
-                            labelText: "email",
-                            labelStyle: Theme.of(context).textTheme.bodyMedium,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5))),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
-                        validator: (value) {
-                          if(value==null||value.isEmpty){
-                            return "please enter password";
-                          }
-                        },
-                        controller:passwordController ,
-                        obscureText: _passwordVisible,
-                        decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              _passwordVisible = !_passwordVisible;
-                              setState(() {});
-                            },
-                            icon: _passwordVisible
-                                ? Icon(Icons.visibility_off)
-                                : Icon(Icons.visibility),
-                          ),
-                          labelText: "password",
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Form(
+                key: formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Login Details",
+                        style: Theme.of(context).textTheme.titleLarge),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "please enter email";
+                        }
+                      },
+                      keyboardType: TextInputType.emailAddress,
+                      controller: emailController,
+                      decoration: InputDecoration(
+                          labelText: "email",
                           labelStyle: Theme.of(context).textTheme.bodyMedium,
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5)),
+                              borderRadius: BorderRadius.circular(5))),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "please enter password";
+                        }
+                      },
+                      controller: passwordController,
+                      obscureText: _passwordVisible,
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            _passwordVisible = !_passwordVisible;
+                            setState(() {});
+                          },
+                          icon: _passwordVisible
+                              ? Icon(
+                                  Icons.visibility_off,
+                                  color: provider.mode == ThemeMode.light
+                                      ? Colors.grey
+                                      : Colors.white,
+                                )
+                              : Icon(Icons.visibility,
+                                  color: provider.mode == ThemeMode.light
+                                      ? Colors.grey
+                                      : Colors.white),
                         ),
+                        labelText: "password",
+                        labelStyle: Theme.of(context).textTheme.bodyMedium,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5)),
                       ),
-                      SizedBox(
-                        height: 18,
-                      ),
-                      Container(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5)),
-                                  backgroundColor: Color(0xFF0B6EFE)),
-                              onPressed: () {
-                                if(formKey.currentState!.validate()){
-                                  FirebaseFunctions.loginUser(
-                                      emailController.text, passwordController.text,
-                                      onSuccess: (label) {
-                                        provider.initUser();
-                                        Navigator.pushNamedAndRemoveUntil(
-                                            context, HomeScreen.routeName, (route) => false,
-                                            arguments: label);
-                                      }, onError: (error) {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                        title: Text(
-                                          "Error",
-                                          style: TextStyle(fontSize: 20),
-                                        ),
-                                        content: Text(error),
-                                        actions: [
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: Text("ok!"),
-                                          )
-                                        ],
+                    ),
+                    SizedBox(
+                      height: 18,
+                    ),
+                    Container(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5)),
+                                backgroundColor: Color(0xFF0B6EFE)),
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                FirebaseFunctions.loginUser(
+                                    emailController.text,
+                                    passwordController.text,
+                                    onSuccess: (label) {
+                                  authProvider.initUser();
+                                  Navigator.pushNamedAndRemoveUntil(context,
+                                      HomeScreen.routeName, (route) => false,
+                                      arguments: label);
+                                }, onError: (error) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: Text(
+                                        "Error",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge,
                                       ),
-                                    );
-                                  });
-
-                                }
-                              },
-                              child: Text(
-                                "Login",
-                                style: TextStyle(color: Colors.white),
-                              ))),
-                      Row(
-                        children: [
-                          Expanded(
-                              child: Image(
-                                  image:
-                                      AssetImage("assets/images/left_divider.png"))),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                                      content: Text(error),
+                                      actions: [
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text("ok!"),
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                });
+                              }
+                            },
                             child: Text(
-                              "Or Sign up With",
-                              style: TextStyle(
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                              child: Image(
-                                  image:
-                                      AssetImage("assets/images/right_divider.png"))),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Center(
-                        child: Container(
-                          height: 50,
-                          width: 50,
-                          child: IconButton(
-                              onPressed: () {
-                                Navigator.pushNamed(context, SignupScreen.routeName);
-                              },
-                              icon: Image(
-                                  image: AssetImage("assets/images/email_icon.png"))),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(35),
-                            color: Color(0xFFECE9EC),
-                          ),
+                              "Login",
+                              style: TextStyle(color: Colors.white),
+                            ))),
+                    Row(
+                      children: [
+                        Expanded(
+                            child: Image(
+                                image: AssetImage(
+                                    "assets/images/left_divider.png"))),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Text("Or Sign up With",
+                              style: Theme.of(context).textTheme.bodyLarge),
                         ),
-                      )
-                    ],
-                  ),
+                        Expanded(
+                            child: Image(
+                                image: AssetImage(
+                                    "assets/images/right_divider.png"))),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Center(
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        child: IconButton(
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, SignupScreen.routeName);
+                            },
+                            icon: Image(
+                                image: AssetImage(
+                                    "assets/images/email_icon.png"))),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(35),
+                          color: Color(0xFFECE9EC),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
-            ],
-          ),
-        );
-      }
-    }
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

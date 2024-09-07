@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_app/firebase_functions.dart';
+import 'package:todo_app/my_theme_data.dart';
+import 'package:todo_app/providers/my_provider.dart';
 
 import '../login/login_screen.dart';
 
@@ -23,8 +26,13 @@ class _SignupScreenState extends State<SignupScreen> {
   bool _passwordVisible = true;
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<MyProvider>(context);
     return Scaffold(
-      backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: true,
+
+      backgroundColor: provider.mode == ThemeMode.light
+          ? primaryLightColor
+          : primaryDarkColor,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -38,9 +46,10 @@ class _SignupScreenState extends State<SignupScreen> {
                   SizedBox(
                     height: 36,
                   ),
-                  Text("Signup Details",
-                      style: GoogleFonts.outfit(
-                          color: Colors.black, fontSize: 26)),
+                  Text(
+                    "Signup Details",
+                    style: Theme.of(context).textTheme.titleLarge,
+                  )
                 ],
               ),
             ),
@@ -55,17 +64,16 @@ class _SignupScreenState extends State<SignupScreen> {
                     child: Column(children: [
                       TextFormField(
                         validator: (value) {
-                          if(value==null||value.isEmpty){
+                          if (value == null || value.isEmpty) {
                             return "please enter email";
                           }
-                          final bool emailValid =
-                          RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                          final bool emailValid = RegExp(
+                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                               .hasMatch(value);
-                          if(!emailValid){
+                          if (!emailValid) {
                             return "please enter valid email format";
                           }
                           return null;
-
                         },
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
@@ -98,9 +106,9 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       TextFormField(
                         validator: (value) {
-                          if(value==null||value.isEmpty){
+                          if (value == null || value.isEmpty) {
                             return "please enter your phone";
-                          }else{
+                          } else {
                             return null;
                           }
                         },
@@ -117,9 +125,9 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       TextFormField(
                         validator: (value) {
-                          if(value==null||value.isEmpty){
+                          if (value == null || value.isEmpty) {
                             return "please enter your age";
-                          }else{
+                          } else {
                             return null;
                           }
                         },
@@ -137,18 +145,16 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       TextFormField(
                         validator: (value) {
-
-                          if (value==null||value.isEmpty) {
+                          if (value == null || value.isEmpty) {
                             return 'Please enter password';
                           }
-                          final bool passwordValid =
-                         RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$').hasMatch(value);
-                            if (!passwordValid) {
-                              return 'Enter valid password format';
-                            }
-                              return null;
-
-
+                          final bool passwordValid = RegExp(
+                                  r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+                              .hasMatch(value);
+                          if (!passwordValid) {
+                            return 'Enter valid password format';
+                          }
+                          return null;
                         },
                         controller: passwordController,
                         obscureText: _passwordVisible,
@@ -159,8 +165,15 @@ class _SignupScreenState extends State<SignupScreen> {
                               setState(() {});
                             },
                             icon: _passwordVisible
-                                ? Icon(Icons.visibility_off)
-                                : Icon(Icons.visibility),
+                                ? Icon(
+                                    Icons.visibility_off,
+                                    color: provider.mode == ThemeMode.light
+                                        ? Colors.grey
+                                        : Colors.white,
+                                  )
+                                : Icon(Icons.visibility,color:  provider.mode == ThemeMode.light
+                                ? Colors.grey
+                                : Colors.white,),
                           ),
                           labelText: "password",
                           labelStyle: Theme.of(context).textTheme.bodyMedium,
@@ -188,14 +201,14 @@ class _SignupScreenState extends State<SignupScreen> {
                               borderRadius: BorderRadius.circular(5)),
                           backgroundColor: Color(0xFF0B6EFE)),
                       onPressed: () {
-                        if(formKey.currentState!.validate()){
+                        if (formKey.currentState!.validate()) {
                           FirebaseFunctions.createAccountAuth(
                               emailController.text, passwordController.text,
                               age: int.parse(ageController.text),
                               phone: phoneController.text,
                               userName: userNameController.text, onSuccess: () {
-                            Navigator.pushNamedAndRemoveUntil(
-                                context, LoginScreen.routeName, (route) => false);
+                            Navigator.pushNamedAndRemoveUntil(context,
+                                LoginScreen.routeName, (route) => false);
                           }, onError: (error) {
                             showDialog(
                               context: context,
@@ -212,7 +225,6 @@ class _SignupScreenState extends State<SignupScreen> {
                               ),
                             );
                           });
-
                         }
                       },
                       child: Text(
@@ -226,12 +238,8 @@ class _SignupScreenState extends State<SignupScreen> {
                           image: AssetImage("assets/images/left_divider.png"))),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Text(
-                      "Or Sign in With",
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
+                    child: Text("Or Sign in With",
+                        style: Theme.of(context).textTheme.bodyLarge),
                   ),
                   Expanded(
                       child: Image(
