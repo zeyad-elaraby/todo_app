@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_app/bottom_sheets/add_task_bottom_sheet.dart';
 import 'package:todo_app/firebase_functions.dart';
 import 'package:todo_app/home_screen.dart';
 import 'package:todo_app/providers/authentication_provider.dart';
@@ -55,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Login Details",
+                    Text("login_details".tr(),
                         style: Theme.of(context).textTheme.titleLarge),
                     SizedBox(
                       height: 15,
@@ -63,13 +65,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     TextFormField(
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return "please enter email";
+                          return "please_enter_email".tr();
                         }
                       },
                       keyboardType: TextInputType.emailAddress,
                       controller: emailController,
                       decoration: InputDecoration(
-                          labelText: "email",
+                          labelText: "email".tr(),
                           labelStyle: Theme.of(context).textTheme.bodyMedium,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5))),
@@ -80,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     TextFormField(
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return "please enter password";
+                          return "please_enter_password".tr();
                         }
                       },
                       controller: passwordController,
@@ -103,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ? Colors.grey
                                       : Colors.white),
                         ),
-                        labelText: "password",
+                        labelText: "password".tr(),
                         labelStyle: Theme.of(context).textTheme.bodyMedium,
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5)),
@@ -134,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     context: context,
                                     builder: (context) => AlertDialog(
                                       title: Text(
-                                        "Error",
+                                        "error".tr(),
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleLarge,
@@ -145,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           onPressed: () {
                                             Navigator.pop(context);
                                           },
-                                          child: Text("ok!"),
+                                          child: Text("ok!".tr()),
                                         )
                                       ],
                                     ),
@@ -154,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               }
                             },
                             child: Text(
-                              "Login",
+                              "login".tr(),
                               style: TextStyle(color: Colors.white),
                             ))),
                     Row(
@@ -165,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     "assets/images/left_divider.png"))),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: Text("Or Sign up With",
+                          child: Text("or_sign_up_with".tr(),
                               style: Theme.of(context).textTheme.bodyLarge),
                         ),
                         Expanded(

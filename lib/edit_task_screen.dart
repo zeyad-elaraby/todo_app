@@ -35,7 +35,7 @@ class _AddTaskScreenState extends State<EditTaskScreen> {
     return Scaffold(
 
       appBar: AppBar(
-        title: Text("To Do List"),
+        title: Text("to_do_list".tr()),
       ),
       body: Center(
         child: Container(
@@ -50,7 +50,7 @@ class _AddTaskScreenState extends State<EditTaskScreen> {
               children: [
                 Center(
                     child: Text(
-                  "Edit Task",
+                  "edit_task".tr(),
                 style: Theme.of(context).textTheme.titleLarge  ,
                 )),
                 SizedBox(
@@ -60,7 +60,7 @@ class _AddTaskScreenState extends State<EditTaskScreen> {
                   keyboardType: TextInputType.emailAddress,
                   controller: titleController,
                   decoration: InputDecoration(
-                      labelText: "title",
+                      labelText: "title".tr(),
                       labelStyle: Theme.of(context).textTheme.bodyMedium,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5))),
@@ -72,7 +72,7 @@ class _AddTaskScreenState extends State<EditTaskScreen> {
                   keyboardType: TextInputType.emailAddress,
                   controller: descriptionController,
                   decoration: InputDecoration(
-                      labelText: "description",
+                      labelText: "description".tr(),
                       labelStyle: Theme.of(context).textTheme.bodyMedium,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5))),
@@ -113,7 +113,7 @@ class _AddTaskScreenState extends State<EditTaskScreen> {
                           Navigator.pop(context);
 
                         },
-                        child: Text("Save Changes".tr(),
+                        child: Text("save_changes".tr(),
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge

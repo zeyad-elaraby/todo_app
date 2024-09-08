@@ -1,4 +1,5 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -8,15 +9,14 @@ import 'package:todo_app/providers/my_provider.dart';
 import 'package:todo_app/task_Item.dart';
 
 class TasksTab extends StatefulWidget {
-
-   TasksTab({super.key});
+  TasksTab({super.key});
 
   @override
   State<TasksTab> createState() => _TasksTabState();
 }
 
 class _TasksTabState extends State<TasksTab> {
-DateTime dateTime=DateTime.now();
+  DateTime dateTime = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +28,8 @@ DateTime dateTime=DateTime.now();
           firstDate: DateTime.now().subtract(Duration(days: 365)),
           lastDate: DateTime.now().add(Duration(days: 365)),
           onDateSelected: (date) {
-            dateTime=date;
-            setState(() {
-
-            });
+            dateTime = date;
+            setState(() {});
           },
           leftMargin: 20,
           monthColor:
@@ -39,37 +37,44 @@ DateTime dateTime=DateTime.now();
           dayColor: Colors.blue,
           activeDayColor: Colors.white,
           activeBackgroundDayColor: Colors.blue,
-          locale: 'en',
+          locale: context.locale == Locale("en") ? 'en' : 'ar',
         ),
         SizedBox(
           height: 24,
         ),
         Expanded(
-          child:StreamBuilder(
+          child: StreamBuilder(
             stream: FirebaseFunctions.getTasks(dateTime),
-            builder: ( context,  snapshot) {
-             if(snapshot.connectionState==ConnectionState.waiting){
-               return Center(child: CircularProgressIndicator());
-             }
-             if(snapshot.hasError){
-               return Column(
-                 children: [
-                   Text("something went wrong"),
-                   ElevatedButton(onPressed: (){}, child: Text("press to try again"))
-                 ],
-               );
-             }
-             var tasks=snapshot.data?.docs.map((e) => e.data(),).toList();
-             if(tasks?.isEmpty??true){
-              return Center(child: Text("no result"));
-             }
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              }
+              if (snapshot.hasError) {
+                return Column(
+                  children: [
+                    Text("something_went_wrong".tr()),
+                    ElevatedButton(
+                        onPressed: () {}, child: Text("press_to_try_again".tr()))
+                  ],
+                );
+              }
+              var tasks = snapshot.data?.docs
+                  .map(
+                    (e) => e.data(),
+                  )
+                  .toList();
+              if (tasks?.isEmpty ?? true) {
+                return Center(child: Text("no_result".tr()));
+              }
               return ListView.builder(
-              itemBuilder: (context, index) {
-                return TaskItem(model:tasks[index],);
-              },
-              itemCount:tasks!.length ,
-            ); },
-
+                itemBuilder: (context, index) {
+                  return TaskItem(
+                    model: tasks[index],
+                  );
+                },
+                itemCount: tasks!.length,
+              );
+            },
           ),
         )
       ],

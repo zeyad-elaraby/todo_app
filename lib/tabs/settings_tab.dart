@@ -107,7 +107,7 @@ class SettingsTab extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 90),
             child: Column(
               children: [
-                Text("logout",style: Theme.of(context).textTheme.titleMedium),
+                Text("logout".tr(),style: Theme.of(context).textTheme.titleMedium),
                 SizedBox(height: 4,),
                 InkWell(
                   onTap:() {

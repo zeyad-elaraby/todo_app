@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
   // MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-      provider = Provider.of<MyProvider>(context);  //when i put var before provider i get the tasks
+    var  provider = Provider.of<MyProvider>(context);  //when i put var before provider i get the tasks
       authenticationProvider = Provider.of<AuthenticationProvider>(context);
     getTheme();
     return MaterialApp(
