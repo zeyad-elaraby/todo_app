@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_app/bottom_sheets/add_task_bottom_sheet.dart';
 import 'package:todo_app/firebase_functions.dart';
 import 'package:todo_app/my_theme_data.dart';
 import 'package:todo_app/providers/my_provider.dart';
@@ -47,7 +49,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     height: 36,
                   ),
                   Text(
-                    "Signup Details",
+                    "signup_details".tr(),
                     style: Theme.of(context).textTheme.titleLarge,
                   )
                 ],
@@ -65,20 +67,20 @@ class _SignupScreenState extends State<SignupScreen> {
                       TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "please enter email";
+                            return "please_enter_email".tr();
                           }
                           final bool emailValid = RegExp(
                                   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                               .hasMatch(value);
                           if (!emailValid) {
-                            return "please enter valid email format";
+                            return "please_enter_valid_email_format".tr();
                           }
                           return null;
                         },
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
-                            labelText: "email",
+                            labelText: "email".tr(),
                             labelStyle: Theme.of(context).textTheme.bodyMedium,
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5))),
@@ -89,14 +91,14 @@ class _SignupScreenState extends State<SignupScreen> {
                       TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "please enter your name";
+                            return "please_enter_your_name".tr();
                           } else {
                             return null;
                           }
                         },
                         controller: userNameController,
                         decoration: InputDecoration(
-                            labelText: "user name",
+                            labelText: "user_name".tr(),
                             labelStyle: Theme.of(context).textTheme.bodyMedium,
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5))),
@@ -107,7 +109,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "please enter your phone";
+                            return "please_enter_your_phone".tr();
                           } else {
                             return null;
                           }
@@ -115,7 +117,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         controller: phoneController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                            labelText: "phone",
+                            labelText: "phone".tr(),
                             labelStyle: Theme.of(context).textTheme.bodyMedium,
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5))),
@@ -126,7 +128,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "please enter your age";
+                            return "please_enter_your_age".tr();
                           } else {
                             return null;
                           }
@@ -134,7 +136,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         controller: ageController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                          labelText: "age",
+                          labelText: "age".tr(),
                           labelStyle: Theme.of(context).textTheme.bodyMedium,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5)),
@@ -146,13 +148,13 @@ class _SignupScreenState extends State<SignupScreen> {
                       TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter password';
+                            return 'please_enter_password'.tr();
                           }
                           final bool passwordValid = RegExp(
                                   r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
                               .hasMatch(value);
                           if (!passwordValid) {
-                            return 'Enter valid password format';
+                            return 'enter_valid_password_format'.tr();
                           }
                           return null;
                         },
@@ -175,7 +177,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 ? Colors.grey
                                 : Colors.white,),
                           ),
-                          labelText: "password",
+                          labelText: "password".tr(),
                           labelStyle: Theme.of(context).textTheme.bodyMedium,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5)),
@@ -213,14 +215,14 @@ class _SignupScreenState extends State<SignupScreen> {
                             showDialog(
                               context: context,
                               builder: (context) => AlertDialog(
-                                title: Text("Error"),
+                                title: Text("error".tr()),
                                 content: Text(error),
                                 actions: [
                                   ElevatedButton(
                                       onPressed: () {
                                         Navigator.pop(context);
                                       },
-                                      child: Text("ok!!"))
+                                      child: Text("ok!".tr()))
                                 ],
                               ),
                             );
@@ -228,7 +230,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         }
                       },
                       child: Text(
-                        "Sign up",
+                        "sign_up".tr(),
                         style: TextStyle(color: Colors.white),
                       ))),
               Row(
@@ -238,7 +240,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           image: AssetImage("assets/images/left_divider.png"))),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Text("Or Sign in With",
+                    child: Text("or_sign_in_with".tr(),
                         style: Theme.of(context).textTheme.bodyLarge),
                   ),
                   Expanded(

@@ -23,7 +23,6 @@ class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
-var provider=Provider.of<MyProvider>(context);
 var authProvider = Provider.of<AuthenticationProvider>(context);
 
     return Scaffold(

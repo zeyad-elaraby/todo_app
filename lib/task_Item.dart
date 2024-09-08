@@ -34,10 +34,17 @@ class TaskItem extends StatelessWidget {
               },
               icon: Icons.delete,
               backgroundColor: Colors.red,
-              label: "delete",
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(18),
-                  bottomLeft: Radius.circular(18)),
+              label: "delete".tr(),
+
+              borderRadius: context.locale == Locale("en")
+                  ? BorderRadius.only(
+                topLeft: Radius.circular(18),
+                bottomLeft: Radius.circular(18),
+              )
+                  : BorderRadius.only(
+                topRight: Radius.circular(18),
+                bottomRight: Radius.circular(18),
+              ),
             ),
             SlidableAction(
               onPressed: (context) {
@@ -45,7 +52,7 @@ class TaskItem extends StatelessWidget {
               },
               icon: Icons.edit,
               backgroundColor: Colors.blue,
-              label: "edit",
+              label: "edit".tr(),
             )
           ],
         ),
@@ -78,7 +85,7 @@ class TaskItem extends StatelessWidget {
                   ],
                 ),
               ),
-              model.isDone==true?Text("Done!!",style: TextStyle(color: Colors.green),):IconButton(
+              model.isDone==true?Text("done!!".tr(),style: TextStyle(color: Colors.green),):IconButton(
                 onPressed: () {
                   model.isDone=true;
                   FirebaseFunctions.updateTask(model);
