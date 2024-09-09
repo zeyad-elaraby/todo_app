@@ -39,16 +39,26 @@ void main() async {
         child: MyApp()),
   ));
 }
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
 
-class MyApp extends StatelessWidget {
+class _MyAppState extends State<MyApp> {
   late MyProvider provider;
   late AuthenticationProvider authenticationProvider;
-  // MyApp({super.key});
+
+  @override
+  void initState() {
+    super.initState();
+    getTheme();
+  }
+
   @override
   Widget build(BuildContext context) {
-    var  provider = Provider.of<MyProvider>(context);  //when i put var before provider i get the tasks
-      authenticationProvider = Provider.of<AuthenticationProvider>(context);
-    getTheme();
+    provider = Provider.of<MyProvider>(context);
+    authenticationProvider = Provider.of<AuthenticationProvider>(context);
+
     return MaterialApp(
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
@@ -57,7 +67,9 @@ class MyApp extends StatelessWidget {
       themeMode: provider.mode,
       theme: MyThemeData.lightTheme,
       darkTheme: MyThemeData.darkTheme,
-      initialRoute:authenticationProvider.fireBaseUser!=null?HomeScreen.routeName: LoginScreen.routeName ,
+      initialRoute: authenticationProvider.fireBaseUser != null
+          ? HomeScreen.routeName
+          : LoginScreen.routeName,
       routes: {
         HomeScreen.routeName: (context) => HomeScreen(),
         LoginScreen.routeName: (context) => LoginScreen(),
@@ -71,11 +83,9 @@ class MyApp extends StatelessWidget {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     bool? isDark = prefs.getBool("isdark");
     if (isDark != null) {
-      if (isDark == true) {
-        provider.mode = ThemeMode.dark;
-      } else {
-        provider.mode = ThemeMode.light;
-      }
+      setState(() {
+        provider.mode = isDark == true ? ThemeMode.dark : ThemeMode.light;
+      });
       provider.notifyListeners();
     }
   }
